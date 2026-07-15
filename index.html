@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazing Egypt — Bespoke Egypt Tours</title>
+<meta name="description" content="Private, custom-built Egypt tours and Nile cruises. Boutique travel operator based in Cairo since 2009.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SHARED TOKENS
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --night: #FAF7F2;
+  --night-mid: #F0EBE1;
+  --gold: #A0722A;
+  --gold-light: #C49A3C;
+  --gold-dim: rgba(160,114,42,0.15);
+  --papyrus: #1C1812;
+  --papyrus-dim: rgba(28,24,18,0.65);
+  --teal: #1B5768;
+  --text-dim: rgba(28,24,18,0.45);
+  --placeholder-bg: #E4DDD3;
+  /* CRM tokens */
+  --crm-bg: #F4F6F9;
+  --crm-sidebar: #1C2333;
+  --crm-sidebar-text: rgba(255,255,255,0.6);
+  --crm-sidebar-active: #A0722A;
+  --crm-card: #FFFFFF;
+  --crm-border: #E8EAF0;
+  --crm-text: #1C1812;
+  --crm-text-dim: #6B7280;
+  --crm-green: #10B981;
+  --crm-red: #EF4444;
+  --crm-blue: #3B82F6;
+  --crm-amber: #F59E0B;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--night); color: var(--papyrus); line-height: 1.6; overflow-x: hidden; }
+
+/* ============================================================
+   PAGE SWITCHER — public site vs crm
+   ============================================================ */
+#public-site { display: block; }
+#crm-app    { display: none; }
+body.crm-mode #public-site { display: none; }
+body.crm-mode #crm-app    { display: flex; }
+
+/* ============================================================
+   PUBLIC SITE STYLES
+   ============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(250,247,242,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--gold-dim);
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; letter-spacing: 0.08em; color: var(--gold); text-decoration: none; }
+.nav-logo span { color: var(--papyrus); font-weight: 300; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--papyrus-dim); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 9px 22px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.nav-cta:hover { background: var(--gold); color: var(--night); }
+
+
+/* HERO */
+.hero { height: 100vh; min-height: 600px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: var(--placeholder-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+.hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; animation: kenburns 20s ease-in-out infinite alternate; }
+.hero-overlay { position: absolute; inset: 0; background: rgba(10,8,5,0.38); }
+.hero-overlay-bottom { position: absolute; bottom: 0; left: 0; right: 0; height: 48px; background: #FAF7F2; }
+@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.07); } }
+.hero-content { position: relative; text-align: center; max-width: 780px; padding: 0 24px; z-index: 2; }
+.hero-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: block; }
+.hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 8vw, 96px); font-weight: 300; line-height: 1.0; color: #FAF7F2; margin-bottom: 8px; }
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub { font-size: 15px; color: rgba(250,247,242,0.75); font-weight: 300; max-width: 480px; margin: 24px auto 40px; line-height: 1.7; }
+.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-primary { background: var(--gold); color: #FAF7F2; padding: 14px 32px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-block; transition: all 0.2s; }
+.btn-primary:hover { background: var(--gold-light); }
+.btn-ghost { background: transparent; color: #FAF7F2; border: 1px solid rgba(250,247,242,0.5); padding: 14px 32px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+.btn-ghost:hover { border-color: #FAF7F2; }
+.hero-scroll { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(250,247,242,0.5); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; z-index: 2; }
+.scroll-line { width: 1px; height: 48px; background: var(--gold); animation: scrollpulse 2s ease-in-out infinite; }
+@keyframes scrollpulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* TRUST BAR */
+.trust-bar { background: var(--night-mid); border-top: 1px solid var(--gold-dim); border-bottom: 1px solid var(--gold-dim); padding: 28px 48px; display: flex; align-items: center; justify-content: center; }
+.trust-item { text-align: center; padding: 0 48px; border-right: 1px solid var(--gold-dim); }
+.trust-item:last-child { border-right: none; }
+.trust-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--gold); line-height: 1; }
+.trust-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-top: 4px; }
+
+/* SECTIONS */
+.section-inner { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+.section-eyebrow { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; color: var(--papyrus); line-height: 1.15; margin-bottom: 20px; }
+.section-title em { font-style: italic; color: var(--gold); }
+.section-sub { font-size: 15px; color: var(--text-dim); line-height: 1.8; max-width: 560px; }
+
+/* PLACEHOLDER */
+.ph { background: var(--placeholder-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; width: 100%; }
+.ph-icon { font-size: 40px; opacity: 0.35; }
+.ph-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.4; }
+
+/* TOURS */
+.tours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+.tour-card { background: var(--night-mid); overflow: hidden; }
+.tour-img-wrap { position: relative; overflow: hidden; height: 260px; }
+.tour-img-wrap .ph { height: 100%; }
+.tour-badge { position: absolute; top: 16px; left: 16px; background: var(--gold); color: #FAF7F2; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 12px; font-weight: 600; }
+.tour-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tour-body { padding: 28px; }
+.tour-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--papyrus); margin-bottom: 10px; line-height: 1.2; }
+.tour-desc { font-size: 13px; color: var(--text-dim); line-height: 1.75; margin-bottom: 24px; }
+.tour-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--gold-dim); padding-top: 20px; }
+.tour-price { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--gold); }
+.tour-price span { font-size: 12px; color: var(--text-dim); font-family: 'Inter', sans-serif; }
+.tour-link { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); padding-bottom: 2px; transition: border-color 0.2s; }
+.tour-link:hover { border-color: var(--gold); }
+
+/* DESTINATIONS */
+.dest-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 260px 260px; gap: 2px; margin-top: 56px; }
+.dest-item { position: relative; overflow: hidden; cursor: pointer; }
+.dest-item.span-row { grid-row: span 2; }
+.dest-item .ph { height: 100%; }
+.dest-photo { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.dest-item:hover .dest-photo { transform: scale(1.05); }
+.dest-overlay { position: absolute; inset: 0; background: rgba(13,17,23,0.5); display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; transition: background 0.3s; }
+.dest-item:hover .dest-overlay { background: rgba(13,17,23,0.3); }
+.dest-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: #FAF7F2; }
+.dest-tagline { font-size: 11px; color: var(--gold); letter-spacing: 0.1em; margin-top: 4px; }
+
+/* HOW IT WORKS */
+.how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 56px; border: 1px solid var(--gold-dim); }
+.how-item { padding: 40px 32px; border-right: 1px solid var(--gold-dim); }
+.how-item:last-child { border-right: none; }
+.how-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--gold); opacity: 0.4; line-height: 1; margin-bottom: 20px; }
+.how-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--papyrus); margin-bottom: 12px; }
+.how-desc { font-size: 13px; color: var(--text-dim); line-height: 1.8; }
+
+/* TESTIMONIALS */
+.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+.testi-card { background: var(--night); border: 1px solid var(--gold-dim); padding: 36px; }
+.testi-stars { color: var(--gold); font-size: 13px; letter-spacing: 4px; margin-bottom: 20px; }
+.testi-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; font-weight: 300; color: var(--papyrus); line-height: 1.65; margin-bottom: 28px; }
+.testi-divider { width: 32px; height: 1px; background: var(--gold); opacity: 0.4; margin-bottom: 20px; }
+.testi-author-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--gold); margin-bottom: 4px; }
+.testi-author-detail { font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; }
+
+/* WHATSAPP CTA */
+.wa-section { background: var(--teal); padding: 100px 48px; text-align: center; }
+.wa-inner { max-width: 640px; margin: 0 auto; }
+.wa-icon { font-size: 44px; margin-bottom: 24px; }
+.wa-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 54px); font-weight: 300; color: #FAF7F2; margin-bottom: 16px; line-height: 1.1; }
+.wa-sub { font-size: 15px; color: rgba(250,247,242,0.85); margin-bottom: 40px; line-height: 1.7; }
+.btn-wa { display: inline-flex; align-items: center; gap: 12px; background: #25D366; color: white; padding: 16px 36px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; text-decoration: none; transition: all 0.2s; }
+.btn-wa:hover { background: #1ebe5a; transform: translateY(-2px); }
+.wa-phone { margin-top: 24px; font-size: 13px; color: rgba(250,247,242,0.6); }
+.wa-phone a { color: rgba(250,247,242,0.8); }
+
+/* FOOTER */
+footer { background: #1C1812; padding: 64px 48px 32px; border-top: 1px solid var(--gold-dim); }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 48px; margin-bottom: 56px; }
+.footer-col h4 { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.footer-brand .nav-logo { font-size: 24px; display: block; margin-bottom: 16px; }
+.footer-brand p { font-size: 13px; color: rgba(250,247,242,0.5); line-height: 1.8; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 10px; }
+.footer-col a { font-size: 13px; color: rgba(250,247,242,0.5); text-decoration: none; transition: color 0.2s; }
+.footer-col a:hover { color: rgba(250,247,242,0.9); }
+.footer-col p { font-size: 13px; color: rgba(250,247,242,0.5); margin-bottom: 10px; }
+.contact-link { color: var(--gold) !important; }
+.footer-bottom { border-top: 1px solid rgba(250,247,242,0.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-bottom p { font-size: 12px; color: rgba(250,247,242,0.35); }
+.footer-bottom span { color: var(--gold); }
+
+/* FLOATING WA */
+.wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 200; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.35); text-decoration: none; font-size: 24px; transition: all 0.2s; animation: pulse-wa 3s ease-in-out infinite; }
+.wa-float:hover { transform: scale(1.1); }
+@keyframes pulse-wa { 0%,100%{ box-shadow: 0 4px 20px rgba(37,211,102,0.35); } 50%{ box-shadow: 0 4px 32px rgba(37,211,102,0.65); } }
+
+/* PUBLIC RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .section-inner { padding: 64px 24px; }
+  .trust-bar { flex-wrap: wrap; gap: 24px; padding: 24px; }
+  .trust-item { border-right: none; padding: 0 20px; }
+  .tours-grid { grid-template-columns: 1fr; }
+  .dest-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .dest-item.span-row { grid-row: span 1; }
+  .dest-item { height: 220px; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .how-item { border-right: none; border-bottom: 1px solid var(--gold-dim); }
+  .testi-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .wa-section { padding: 64px 24px; }
+  footer { padding: 48px 24px 24px; }
+}
+@media (max-width: 560px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr; }
+  .dest-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   CRM APP STYLES
+   ============================================================ */
+#crm-app {
+  height: 100vh; width: 100vw;
+  background: var(--crm-bg);
+  font-family: 'Inter', sans-serif;
+  color: var(--crm-text);
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.crm-sidebar {
+  width: 240px; min-width: 240px; height: 100vh;
+  background: var(--crm-sidebar);
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+}
+.crm-sidebar-logo {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.crm-sidebar-logo .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--gold); }
+.crm-sidebar-logo .logo-text span { color: rgba(255,255,255,0.8); font-weight: 300; }
+.crm-sidebar-logo .logo-sub { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 4px; }
+.crm-nav { padding: 16px 0; flex: 1; }
+.crm-nav-section { padding: 16px 24px 8px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+.crm-nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 24px; font-size: 13px; font-weight: 500;
+  color: var(--crm-sidebar-text); cursor: pointer;
+  transition: all 0.15s; border-left: 3px solid transparent;
+}
+.crm-nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
+.crm-nav-item.active { background: rgba(160,114,42,0.15); color: white; border-left-color: var(--gold); }
+.crm-nav-item .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+.crm-sidebar-footer { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.07); }
+.crm-back-btn { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.2s; background: none; border: none; }
+.crm-back-btn:hover { color: rgba(255,255,255,0.8); }
+
+/* MAIN AREA */
+.crm-main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+.crm-topbar {
+  background: white; border-bottom: 1px solid var(--crm-border);
+  padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 10;
+}
+.crm-page-title { font-size: 18px; font-weight: 600; color: var(--crm-text); }
+.crm-topbar-actions { display: flex; gap: 10px; align-items: center; }
+.crm-btn { padding: 8px 16px; font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: all 0.15s; border-radius: 4px; }
+.crm-btn-primary { background: var(--gold); color: white; }
+.crm-btn-primary:hover { background: var(--gold-light); }
+.crm-btn-ghost { background: white; color: var(--crm-text); border: 1px solid var(--crm-border); }
+.crm-btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.crm-content { padding: 28px 32px; flex: 1; }
+
+/* STAT CARDS */
+.crm-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.stat-card { background: var(--crm-card); border: 1px solid var(--crm-border); border-radius: 6px; padding: 20px 24px; }
+.stat-label { font-size: 12px; color: var(--crm-text-dim); letter-spacing: 0.05em; margin-bottom: 8px; }
+.stat-value { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--crm-text); line-height: 1; }
+.stat-sub { font-size: 11px; color: var(--crm-text-dim); margin-top: 6px; }
+.stat-sub.up { color: var(--crm-green); }
+.stat-sub.down { color: var(--crm-red); }
+
+/* TABLE */
+.crm-table-wrap { background: var(--crm-card); border: 1px solid var(--crm-border); border-radius: 6px; overflow: hidden; }
+.crm-table-header { padding: 16px 24px; border-bottom: 1px solid var(--crm-border); display: flex; align-items: center; justify-content: space-between; }
+.crm-table-title { font-size: 14px; font-weight: 600; }
+.crm-search { padding: 7px 12px; border: 1px solid var(--crm-border); border-radius: 4px; font-size: 13px; width: 220px; outline: none; color: var(--crm-text); }
+.crm-search:focus { border-color: var(--gold); }
+table { width: 100%; border-collapse: collapse; }
+thead th { padding: 11px 16px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--crm-text-dim); text-align: left; border-bottom: 1px solid var(--crm-border); background: #FAFBFC; font-weight: 500; }
+tbody td { padding: 13px 16px; font-size: 13px; border-bottom: 1px solid var(--crm-border); vertical-align: middle; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #FAFBFC; }
+.td-name { font-weight: 500; color: var(--crm-text); }
+.td-sub { font-size: 11px; color: var(--crm-text-dim); margin-top: 2px; }
+
+/* BADGES */
+.badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+.badge-green  { background: #D1FAE5; color: #065F46; }
+.badge-amber  { background: #FEF3C7; color: #92400E; }
+.badge-blue   { background: #DBEAFE; color: #1E40AF; }
+.badge-red    { background: #FEE2E2; color: #991B1B; }
+.badge-gray   { background: #F3F4F6; color: #374151; }
+.badge-gold   { background: rgba(160,114,42,0.12); color: #7A5520; }
+
+/* ACTION LINK */
+.tbl-action { font-size: 12px; color: var(--gold); cursor: pointer; text-decoration: none; font-weight: 500; margin-right: 12px; background: none; border: none; }
+.tbl-action:hover { text-decoration: underline; }
+
+/* FORM / MODAL */
+.crm-modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 500; align-items: center; justify-content: center; }
+.crm-modal-backdrop.open { display: flex; }
+.crm-modal { background: white; border-radius: 8px; width: 560px; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+.crm-modal-head { padding: 20px 24px; border-bottom: 1px solid var(--crm-border); display: flex; justify-content: space-between; align-items: center; }
+.crm-modal-head h3 { font-size: 16px; font-weight: 600; }
+.crm-modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--crm-text-dim); line-height: 1; }
+.crm-modal-body { padding: 24px; }
+.crm-modal-footer { padding: 16px 24px; border-top: 1px solid var(--crm-border); display: flex; justify-content: flex-end; gap: 10px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: span 2; }
+.form-label { font-size: 12px; font-weight: 500; color: var(--crm-text-dim); }
+.form-input, .form-select, .form-textarea {
+  padding: 9px 12px; border: 1px solid var(--crm-border); border-radius: 4px;
+  font-size: 13px; font-family: 'Inter', sans-serif; color: var(--crm-text); outline: none;
+  transition: border-color 0.15s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+.form-textarea { resize: vertical; min-height: 80px; }
+
+/* DETAIL PANEL */
+.crm-detail { background: white; border-left: 1px solid var(--crm-border); width: 360px; min-width: 360px; height: 100%; overflow-y: auto; display: none; flex-direction: column; }
+.crm-detail.open { display: flex; }
+.crm-detail-head { padding: 20px 24px; border-bottom: 1px solid var(--crm-border); display: flex; justify-content: space-between; align-items: flex-start; }
+.crm-detail-close { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--crm-text-dim); }
+.crm-detail-body { padding: 20px 24px; flex: 1; }
+.detail-section { margin-bottom: 24px; }
+.detail-section-title { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--crm-text-dim); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--crm-border); }
+.detail-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.detail-key { font-size: 12px; color: var(--crm-text-dim); }
+.detail-val { font-size: 13px; color: var(--crm-text); font-weight: 500; text-align: right; max-width: 200px; }
+
+/* GRID CARDS (hotels / transport / packages) */
+.crm-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.crm-card { background: var(--crm-card); border: 1px solid var(--crm-border); border-radius: 6px; overflow: hidden; }
+.crm-card-img { height: 140px; background: var(--placeholder-bg); display: flex; align-items: center; justify-content: center; font-size: 36px; opacity: 0.5; }
+.crm-card-body { padding: 16px; }
+.crm-card-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.crm-card-sub { font-size: 12px; color: var(--crm-text-dim); margin-bottom: 10px; }
+.crm-card-meta { display: flex; justify-content: space-between; align-items: center; }
+.crm-card-price { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--gold); }
+.crm-card-actions { display: flex; gap: 8px; }
+
+/* TABS within sections */
+.crm-tabs { display: flex; gap: 2px; margin-bottom: 20px; background: var(--crm-border); border-radius: 6px; padding: 3px; width: fit-content; }
+.crm-tab { padding: 7px 16px; font-size: 13px; font-weight: 500; cursor: pointer; border-radius: 4px; color: var(--crm-text-dim); transition: all 0.15s; background: none; border: none; }
+.crm-tab.active { background: white; color: var(--crm-text); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+/* METHOD PILLS */
+.method-pill {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 8px; border: 1px solid var(--crm-border); border-radius: 6px;
+  font-size: 12px; font-weight: 500; cursor: pointer; text-align: center;
+  transition: all 0.15s; color: var(--crm-text-dim); background: white;
+  user-select: none;
+}
+.method-pill:hover { border-color: var(--gold); color: var(--gold); }
+.method-pill.selected { border-color: var(--gold); background: rgba(160,114,42,0.08); color: var(--gold); font-weight: 600; }
+
+/* TIMELINE (itinerary day view) */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-day { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--crm-border); }
+.timeline-day:last-child { border-bottom: none; }
+.timeline-day-num { width: 36px; min-width: 36px; height: 36px; border-radius: 50%; background: var(--gold); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; margin-top: 2px; }
+.timeline-day-content { flex: 1; }
+.timeline-day-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.timeline-day-detail { font-size: 12px; color: var(--crm-text-dim); line-height: 1.6; }
+.timeline-day-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+
+/* PAYMENT ROWS */
+.payment-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--crm-border); }
+.payment-row:last-child { border-bottom: none; }
+.payment-amount-pos { font-weight: 600; color: var(--crm-green); }
+.payment-amount-neg { font-weight: 600; color: var(--crm-red); }
+
+/* HIDDEN panels */
+.crm-panel { display: none; }
+.crm-panel.active { display: block; }
+
+/* LAYOUT CONTAINER */
+.crm-layout { display: flex; height: 100vh; width: 100%; }
+.crm-body { display: flex; flex: 1; overflow: hidden; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PUBLIC WEBSITE
+     ============================================================ -->
+<div id="public-site">
+<a class="wa-float" href="https://wa.me/201112922496?text=Hi%2C%20I%27m%20interested%20in%20planning%20an%20Egypt%20trip" target="_blank">💬</a>
+
+<nav>
+  <a href="#" class="nav-logo">Amazing<span>Egypt</span></a>
+  <ul class="nav-links">
+    <li><a href="#tours">Tours</a></li>
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="https://wa.me/201112922496?text=Hi%2C%20I%27d%20like%20to%20plan%20a%20custom%20Egypt%20trip" target="_blank">Plan My Trip</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg">
+    <img src="images/egypt_hero_img.png" alt="Egypt">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay-bottom"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Cairo · Luxor · Aswan · Siwa · Sinai</span>
+    <h1 class="hero-title">Egypt,<br><em>Crafted for You</em></h1>
+    <p class="hero-sub">Private, custom-built journeys into one of the world's oldest civilizations. Led by locals who know every hidden temple, secret bazaar, and timeless stretch of the Nile.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://wa.me/201112922496?text=Hi%2C%20I%27d%20like%20to%20plan%20a%20custom%20Egypt%20trip" target="_blank">Start on WhatsApp</a>
+      <a class="btn-ghost" href="#tours">View Tours</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</div>
+
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-num">15+</div><div class="trust-label">Years in Egypt</div></div>
+  <div class="trust-item"><div class="trust-num">2,400+</div><div class="trust-label">Guests Guided</div></div>
+  <div class="trust-item"><div class="trust-num">100%</div><div class="trust-label">Custom Itineraries</div></div>
+  <div class="trust-item"><div class="trust-num">5★</div><div class="trust-label">TripAdvisor Rating</div></div>
+</div>
+
+<section id="tours">
+  <div class="section-inner">
+    <span class="section-eyebrow">Curated Experiences</span>
+    <h2 class="section-title">Featured <em>Journeys</em></h2>
+    <p class="section-sub">Each itinerary is personally designed, never packaged. Your pace, your interests, your Egypt.</p>
+    <div class="tours-grid">
+      <div class="tour-card">
+        <div class="tour-img-wrap">
+          <img src="images/nile-cruise-to-kom-ombo.jpg.avif" class="tour-photo" alt="Secrets of the Nile">
+          <span class="tour-badge">Best Seller</span>
+        </div>
+        <div class="tour-body">
+          <div class="tour-name">Secrets of the Nile</div>
+          <div class="tour-desc">Ten days aboard a luxury Nile cruise from Luxor to Aswan, with private access to temples before the crowds arrive.</div>
+          <div class="tour-meta">
+            <div class="tour-price">$2,700 <span>/ person · 10 days</span></div>
+            <a class="tour-link" href="https://wa.me/201112922496?text=I%27m%20interested%20in%20Secrets%20of%20the%20Nile" target="_blank">Enquire →</a>
+          </div>
+        </div>
+      </div>
+      <div class="tour-card">
+        <div class="tour-img-wrap">
+          <img src="images/pyra.avif" class="tour-photo" alt="Majestic Egypt">
+          <span class="tour-badge">Classic</span>
+        </div>
+        <div class="tour-body">
+          <div class="tour-name">Majestic Egypt</div>
+          <div class="tour-desc">Eleven days from the Pyramids of Giza to the temples of Abu Simbel — antiquity at every turn, without the crowds.</div>
+          <div class="tour-meta">
+            <div class="tour-price">$3,200 <span>/ person · 11 days</span></div>
+            <a class="tour-link" href="https://wa.me/201112922496?text=I%27m%20interested%20in%20Majestic%20Egypt" target="_blank">Enquire →</a>
+          </div>
+        </div>
+      </div>
+      <div class="tour-card">
+        <div class="tour-img-wrap">
+          <img src="images/egypt_collage.png" class="tour-photo" alt="Tailor-Made Journey">
+          <span class="tour-badge">Custom</span>
+        </div>
+        <div class="tour-body">
+          <div class="tour-name">Tailor-Made Journey</div>
+          <div class="tour-desc">No fixed route. Tell us your dream — desert oases, Red Sea diving, hidden Cairo streets — we build it around you.</div>
+          <div class="tour-meta">
+            <div class="tour-price">Custom <span>pricing</span></div>
+            <a class="tour-link" href="https://wa.me/201112922496?text=I%27d%20like%20a%20custom%20Egypt%20itinerary" target="_blank">Let's Talk →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="destinations" style="background: var(--night-mid); padding: 0;">
+  <div class="section-inner">
+    <span class="section-eyebrow">Where We Take You</span>
+    <h2 class="section-title">Explore <em>Egypt's</em> Wonders</h2>
+    <div class="dest-grid">
+      <div class="dest-item span-row">
+        <img src="images/city_of_minarets.png" class="dest-photo" alt="Cairo">
+        <div class="dest-overlay"><div class="dest-name">Cairo</div><div class="dest-tagline">City of a Thousand Minarets</div></div>
+      </div>
+      <div class="dest-item">
+        <img src="images/luxor.jpeg" class="dest-photo" alt="Luxor">
+        <div class="dest-overlay"><div class="dest-name">Luxor</div><div class="dest-tagline">Greatest Open-Air Museum</div></div>
+      </div>
+      <div class="dest-item">
+        <img src="images/aswan.avif" class="dest-photo" alt="Aswan">
+        <div class="dest-overlay"><div class="dest-name">Aswan</div><div class="dest-tagline">Nubian Soul of the Nile</div></div>
+      </div>
+      <div class="dest-item">
+        <img src="images/siwa_oasis.jpeg" class="dest-photo" alt="Siwa Oasis">
+        <div class="dest-overlay"><div class="dest-name">Siwa Oasis</div><div class="dest-tagline">Egypt's Remote Desert Jewel</div></div>
+      </div>
+      <div class="dest-item">
+        <img src="images/alexandria.jpeg" class="dest-photo" alt="Alexandria">
+        <div class="dest-overlay"><div class="dest-name">Alexandria</div><div class="dest-tagline">Where History Meets the Sea</div></div>
+      </div>
+      <div class="dest-item">
+        <img src="images/red_sea.jpeg" class="dest-photo" alt="Red Sea">
+        <div class="dest-overlay"><div class="dest-name">Red Sea</div><div class="dest-tagline">Pristine Reefs & Desert Coast</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="section-inner">
+    <span class="section-eyebrow">The Process</span>
+    <h2 class="section-title">How We <em>Build Your Trip</em></h2>
+    <p class="section-sub">No booking engines. No one-size-fits-all packages. Just a conversation that becomes the journey of a lifetime.</p>
+    <div class="how-grid">
+      <div class="how-item"><div class="how-num">01</div><div class="how-title">Tell Us Your Vision</div><div class="how-desc">Message us on WhatsApp or fill our quick form. Share your dates, interests, travel style, and budget.</div></div>
+      <div class="how-item"><div class="how-num">02</div><div class="how-title">We Craft Your Itinerary</div><div class="how-desc">Within 24 hours, you'll receive a personalised day-by-day plan, hotels, and inclusions — adjusted until perfect.</div></div>
+      <div class="how-item"><div class="how-num">03</div><div class="how-title">Confirm & Prepare</div><div class="how-desc">We handle all logistics — guides, transfers, permits, hotels. You just pack and show up ready to explore.</div></div>
+      <div class="how-item"><div class="how-num">04</div><div class="how-title">Experience Egypt</div><div class="how-desc">Your private guide meets you on arrival. We're on WhatsApp throughout, every step of the way.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" style="background: var(--night-mid); padding: 0;">
+  <div class="section-inner">
+    <span class="section-eyebrow">What Guests Say</span>
+    <h2 class="section-title">Stories from <em>the Journey</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"It was one of the best and most memorable trips I have had in a long time."</div>
+        <div class="testi-divider"></div>
+        <div class="testi-author-name">Hatim Al Anwar</div>
+        <div class="testi-author-detail">California, USA · Secrets of the Nile</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Everything was handled. Every single thing. Best travel experience of our lives — and we've been to 40+ countries."</div>
+        <div class="testi-divider"></div>
+        <div class="testi-author-name">Ali Chathiwala</div>
+        <div class="testi-author-detail">Illinois, USA · Custom Itinerary</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"I messaged on WhatsApp half-expecting a generic reply. Instead I got a personalised 10-day plan within an hour. Booked immediately."</div>
+        <div class="testi-divider"></div>
+        <div class="testi-author-name">Huzefa Haryana</div>
+        <div class="testi-author-detail">New York, USA · Majestic Egypt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wa-section" id="contact">
+  <div class="wa-inner">
+    <div class="wa-icon">💬</div>
+    <h2 class="wa-title">Ready to Plan Your Egypt?</h2>
+    <p class="wa-sub">Most journeys begin with a single WhatsApp message. Tell us your dream, and we'll take it from there — no forms, no fuss.</p>
+    <a class="btn-wa" href="https://wa.me/201112922496?text=Hi%2C%20I%27d%20like%20to%20plan%20a%20trip%20to%20Egypt" target="_blank">💬 &nbsp; Chat on WhatsApp</a>
+    <p class="wa-phone">Or call us: <a href="tel:+201112922496">+20 111 292 2496</a></p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-col footer-brand">
+      <a class="nav-logo" href="#">Amazing<span>Egypt</span></a>
+      <p>Boutique Egypt travel, crafted by locals who love this land as much as our guests do. Est. 2009, Cairo.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#tours">Custom Itineraries</a></li>
+        <li><a href="#tours">Small Group Tours</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Tours</h4>
+      <ul>
+        <li><a href="#">Secrets of the Nile</a></li>
+        <li><a href="#">Majestic Egypt</a></li>
+        <li><a href="#">Pyramids & Cairo</a></li>
+        <li><a href="#">Siwa Desert Safari</a></li>
+        <li><a href="#">Red Sea Escapes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>📞 <a class="contact-link" href="tel:+201112922496">+20 111 292 2496</a></p>
+      <p>💬 <a class="contact-link" href="https://wa.me/201112922496" target="_blank">WhatsApp Us</a></p>
+      <p>📍 Cairo, Egypt</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2009–2025 <span>Amazing Egypt</span>. All rights reserved.</p>
+    <p>Egypt Tour Operator · Private Tours · Nile Cruises · Custom Itineraries</p>
+  </div>
+</footer>
+</div><!-- /public-site -->
+
+
+<!-- ============================================================
+     CRM APPLICATION
+     ============================================================ -->
+<div id="crm-app">
+<div class="crm-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="crm-sidebar">
+    <div class="crm-sidebar-logo">
+      <div class="logo-text">Amazing<span>Egypt</span></div>
+      <div class="logo-sub">Admin Dashboard</div>
+    </div>
+    <nav class="crm-nav">
+      <div class="crm-nav-section">Overview</div>
+      <div class="crm-nav-item active" onclick="showPanel('dashboard',this)"><span class="nav-icon">📊</span> Dashboard</div>
+
+      <div class="crm-nav-section">Clients</div>
+      <div class="crm-nav-item" onclick="showPanel('clients',this)"><span class="nav-icon">👥</span> All Clients</div>
+      <div class="crm-nav-item" onclick="showPanel('itineraries',this)"><span class="nav-icon">🗺️</span> Itineraries</div>
+      <div class="crm-nav-item" onclick="showPanel('payments',this)"><span class="nav-icon">💳</span> Payments</div>
+
+      <div class="crm-nav-section">Inventory</div>
+      <div class="crm-nav-item" onclick="showPanel('packages',this)"><span class="nav-icon">📦</span> Packages</div>
+      <div class="crm-nav-item" onclick="showPanel('hotels',this)"><span class="nav-icon">🏨</span> Hotels</div>
+      <div class="crm-nav-item" onclick="showPanel('transport',this)"><span class="nav-icon">🚌</span> Transport</div>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <button class="crm-back-btn" onclick="closeCRM()">← Back to Website</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="crm-body" style="flex:1;overflow:hidden;display:flex;">
+  <div class="crm-main" id="crm-main">
+
+    <!-- TOP BAR -->
+    <div class="crm-topbar">
+      <div class="crm-page-title" id="crm-title">Dashboard</div>
+      <div class="crm-topbar-actions">
+        <button class="crm-btn crm-btn-ghost" id="crm-top-secondary" style="display:none"></button>
+        <button class="crm-btn crm-btn-primary" id="crm-top-primary" onclick="handlePrimaryAction()">+ New Client</button>
+      </div>
+    </div>
+
+    <div class="crm-content">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="crm-panel active" id="panel-dashboard">
+        <div class="crm-stats">
+          <div class="stat-card">
+            <div class="stat-label">Active Clients</div>
+            <div class="stat-value">24</div>
+            <div class="stat-sub up">↑ 3 this month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Upcoming Trips</div>
+            <div class="stat-value">8</div>
+            <div class="stat-sub">Next: Jun 14</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Revenue (YTD)</div>
+            <div class="stat-value">$84,200</div>
+            <div class="stat-sub up">↑ 18% vs last year</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Outstanding Balance</div>
+            <div class="stat-value">$12,400</div>
+            <div class="stat-sub down">4 invoices pending</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="crm-table-wrap">
+            <div class="crm-table-header">
+              <div class="crm-table-title">Upcoming Trips</div>
+            </div>
+            <table>
+              <thead><tr><th>Client</th><th>Package</th><th>Departure</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><div class="td-name">Hatim Al Anwar</div></td><td>Secrets of the Nile</td><td>Jun 14</td><td><span class="badge badge-green">Confirmed</span></td></tr>
+                <tr><td><div class="td-name">Ali Chathiwala</div></td><td>Majestic Egypt</td><td>Jun 22</td><td><span class="badge badge-green">Confirmed</span></td></tr>
+                <tr><td><div class="td-name">Huzefa Haryana</div></td><td>Custom · 7 days</td><td>Jul 3</td><td><span class="badge badge-amber">Deposit Paid</span></td></tr>
+                <tr><td><div class="td-name">Fatima Siddiqui</div></td><td>Nile Cruise</td><td>Jul 18</td><td><span class="badge badge-blue">In Planning</span></td></tr>
+                <tr><td><div class="td-name">Omar Rashid</div></td><td>Siwa Safari</td><td>Aug 2</td><td><span class="badge badge-amber">Deposit Paid</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="crm-table-wrap">
+            <div class="crm-table-header">
+              <div class="crm-table-title">Recent Payments</div>
+            </div>
+            <table>
+              <thead><tr><th>Client</th><th>Amount</th><th>Date</th><th>Type</th></tr></thead>
+              <tbody>
+                <tr><td><div class="td-name">Ali Chathiwala</div></td><td style="color:var(--crm-green);font-weight:600;">+$1,600</td><td>Jun 1</td><td><span class="badge badge-gray">Balance</span></td></tr>
+                <tr><td><div class="td-name">Huzefa Haryana</div></td><td style="color:var(--crm-green);font-weight:600;">+$800</td><td>May 28</td><td><span class="badge badge-amber">Deposit</span></td></tr>
+                <tr><td><div class="td-name">Fatima Siddiqui</div></td><td style="color:var(--crm-green);font-weight:600;">+$500</td><td>May 25</td><td><span class="badge badge-amber">Deposit</span></td></tr>
+                <tr><td><div class="td-name">Hatim Al Anwar</div></td><td style="color:var(--crm-green);font-weight:600;">+$2,700</td><td>May 20</td><td><span class="badge badge-green">Full</span></td></tr>
+                <tr><td><div class="td-name">Omar Rashid</div></td><td style="color:var(--crm-green);font-weight:600;">+$600</td><td>May 18</td><td><span class="badge badge-amber">Deposit</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CLIENTS ── -->
+      <div class="crm-panel" id="panel-clients">
+        <div class="crm-table-wrap">
+          <div class="crm-table-header">
+            <div class="crm-table-title">All Clients</div>
+            <input class="crm-search" placeholder="Search clients…" oninput="filterTable(this,'clients-tbody')">
+          </div>
+          <table>
+            <thead><tr><th>Name</th><th>Origin</th><th>WhatsApp</th><th>Package</th><th>Travel Date</th><th>Status</th><th>Balance Due</th><th></th></tr></thead>
+            <tbody id="clients-tbody">
+              <tr><td><div class="td-name">Hatim Al Anwar</div><div class="td-sub">hatim@alanwar.com</div></td><td>California, USA</td><td>+1 909 555 0101</td><td>Secrets of the Nile</td><td>Jun 14, 2025</td><td><span class="badge badge-green">Confirmed</span></td><td>$0</td><td><button class="tbl-action" onclick="openClient(0)">View</button></td></tr>
+              <tr><td><div class="td-name">Ali Chathiwala</div><div class="td-sub">ali@email.com</div></td><td>Illinois, USA</td><td>+1 312 555 0188</td><td>Majestic Egypt</td><td>Jun 22, 2025</td><td><span class="badge badge-green">Confirmed</span></td><td>$0</td><td><button class="tbl-action" onclick="openClient(1)">View</button></td></tr>
+              <tr><td><div class="td-name">Huzefa Haryana</div><div class="td-sub">huzefa@email.com</div></td><td>New York, USA</td><td>+1 212 555 0199</td><td>Custom · 7 days</td><td>Jul 3, 2025</td><td><span class="badge badge-amber">Deposit Paid</span></td><td>$1,900</td><td><button class="tbl-action" onclick="openClient(2)">View</button></td></tr>
+              <tr><td><div class="td-name">Fatima Siddiqui</div><div class="td-sub">fatima@email.com</div></td><td>Dubai, UAE</td><td>+971 50 555 0142</td><td>Nile Cruise · 10 days</td><td>Jul 18, 2025</td><td><span class="badge badge-blue">In Planning</span></td><td>$2,200</td><td><button class="tbl-action" onclick="openClient(3)">View</button></td></tr>
+              <tr><td><div class="td-name">Omar Rashid</div><div class="td-sub">omar@email.com</div></td><td>London, UK</td><td>+44 7700 900155</td><td>Siwa Safari · 5 days</td><td>Aug 2, 2025</td><td><span class="badge badge-amber">Deposit Paid</span></td><td>$1,800</td><td><button class="tbl-action" onclick="openClient(4)">View</button></td></tr>
+              <tr><td><div class="td-name">Sarah Mitchell</div><div class="td-sub">sarah@email.com</div></td><td>Toronto, Canada</td><td>+1 416 555 0177</td><td>Tailor-Made · 9 days</td><td>Aug 15, 2025</td><td><span class="badge badge-blue">In Planning</span></td><td>$2,400</td><td><button class="tbl-action" onclick="openClient(5)">View</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── ITINERARIES ── -->
+      <div class="crm-panel" id="panel-itineraries">
+        <div class="crm-table-wrap" style="margin-bottom:20px;">
+          <div class="crm-table-header">
+            <div class="crm-table-title">All Itineraries</div>
+            <input class="crm-search" placeholder="Search itineraries…" oninput="filterTable(this,'itin-tbody')">
+          </div>
+          <table>
+            <thead><tr><th>Ref</th><th>Client</th><th>Package</th><th>Departure</th><th>Return</th><th>Pax</th><th>Total Value</th><th>Status</th><th></th></tr></thead>
+            <tbody id="itin-tbody">
+              <tr><td><span class="badge badge-gold">AE-001</span></td><td>Hatim Al Anwar</td><td>Secrets of the Nile</td><td>Jun 14</td><td>Jun 24</td><td>2</td><td>$5,400</td><td><span class="badge badge-green">Confirmed</span></td><td><button class="tbl-action" onclick="openItinerary(0)">View</button></td></tr>
+              <tr><td><span class="badge badge-gold">AE-002</span></td><td>Ali Chathiwala</td><td>Majestic Egypt</td><td>Jun 22</td><td>Jul 3</td><td>4</td><td>$12,800</td><td><span class="badge badge-green">Confirmed</span></td><td><button class="tbl-action" onclick="openItinerary(1)">View</button></td></tr>
+              <tr><td><span class="badge badge-gold">AE-003</span></td><td>Huzefa Haryana</td><td>Custom · 7 days</td><td>Jul 3</td><td>Jul 10</td><td>2</td><td>$5,400</td><td><span class="badge badge-amber">In Progress</span></td><td><button class="tbl-action" onclick="openItinerary(2)">View</button></td></tr>
+              <tr><td><span class="badge badge-gold">AE-004</span></td><td>Fatima Siddiqui</td><td>Nile Cruise · 10 days</td><td>Jul 18</td><td>Jul 28</td><td>2</td><td>$5,400</td><td><span class="badge badge-blue">Planning</span></td><td><button class="tbl-action" onclick="openItinerary(3)">View</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── PAYMENTS ── -->
+      <div class="crm-panel" id="panel-payments">
+        <div class="crm-stats" style="grid-template-columns:repeat(3,1fr);">
+          <div class="stat-card"><div class="stat-label">Total Received (2025)</div><div class="stat-value">$84,200</div><div class="stat-sub up">↑ 18% YoY</div></div>
+          <div class="stat-card"><div class="stat-label">Outstanding</div><div class="stat-value">$12,400</div><div class="stat-sub down">4 clients pending</div></div>
+          <div class="stat-card"><div class="stat-label">This Month</div><div class="stat-value">$8,200</div><div class="stat-sub up">↑ vs $6,100 last month</div></div>
+        </div>
+        <div class="crm-table-wrap">
+          <div class="crm-table-header">
+            <div class="crm-table-title">Payment Ledger</div>
+            <input class="crm-search" placeholder="Search payments…" oninput="filterTable(this,'pay-tbody')">
+          </div>
+          <table>
+            <thead><tr><th>Date</th><th>Client</th><th>Ref</th><th>Type</th><th>Amount</th><th>Method</th><th>Handed To</th><th>Status</th></tr></thead>
+            <tbody id="pay-tbody">
+              <tr><td>Jun 1, 2025</td><td>Ali Chathiwala</td><td>AE-002</td><td>Balance</td><td style="color:var(--crm-green);font-weight:600;">+$1,600</td><td><span class="badge badge-blue">Bank Transfer</span></td><td><span class="td-sub">—</span></td><td><span class="badge badge-green">Received</span></td></tr>
+              <tr><td>May 28, 2025</td><td>Huzefa Haryana</td><td>AE-003</td><td>Deposit</td><td style="color:var(--crm-green);font-weight:600;">+$800</td><td><span class="badge badge-amber">Cash</span></td><td>Mohamed Youssef</td><td><span class="badge badge-green">Received</span></td></tr>
+              <tr><td>May 25, 2025</td><td>Fatima Siddiqui</td><td>AE-004</td><td>Deposit</td><td style="color:var(--crm-green);font-weight:600;">+$500</td><td><span class="badge badge-gray">WhatsApp Pay</span></td><td><span class="td-sub">—</span></td><td><span class="badge badge-green">Received</span></td></tr>
+              <tr><td>May 20, 2025</td><td>Hatim Al Anwar</td><td>AE-001</td><td>Full Payment</td><td style="color:var(--crm-green);font-weight:600;">+$2,700</td><td><span class="badge badge-blue">Bank Transfer</span></td><td><span class="td-sub">—</span></td><td><span class="badge badge-green">Received</span></td></tr>
+              <tr><td>May 18, 2025</td><td>Omar Rashid</td><td>AE-005</td><td>Deposit</td><td style="color:var(--crm-green);font-weight:600;">+$600</td><td><span class="badge badge-amber">Cash</span></td><td>Ahmed Karim</td><td><span class="badge badge-green">Received</span></td></tr>
+              <tr><td>May 10, 2025</td><td>Sarah Mitchell</td><td>AE-006</td><td>Deposit</td><td style="color:var(--crm-green);font-weight:600;">+$900</td><td><span class="badge badge-green">Card</span></td><td><span class="td-sub">—</span></td><td><span class="badge badge-green">Received</span></td></tr>
+              <tr><td>Apr 30, 2025</td><td>Ali Chathiwala</td><td>AE-002</td><td>Deposit</td><td style="color:var(--crm-green);font-weight:600;">+$3,200</td><td><span class="badge badge-gray">Cheque</span></td><td><span class="td-sub">—</span></td><td><span class="badge badge-green">Received</span></td></tr>
+              <tr><td>Jul 3, 2025</td><td>Huzefa Haryana</td><td>AE-003</td><td>Balance</td><td style="color:var(--crm-red);font-weight:600;">$1,900</td><td><span class="badge badge-gray">—</span></td><td><span class="td-sub">—</span></td><td><span class="badge badge-amber">Pending</span></td></tr>
+              <tr><td>Jul 18, 2025</td><td>Fatima Siddiqui</td><td>AE-004</td><td>Balance</td><td style="color:var(--crm-red);font-weight:600;">$2,200</td><td><span class="badge badge-gray">—</span></td><td><span class="td-sub">—</span></td><td><span class="badge badge-amber">Pending</span></td></tr>
+              <tr><td>Aug 2, 2025</td><td>Omar Rashid</td><td>AE-005</td><td>Balance</td><td style="color:var(--crm-red);font-weight:600;">$1,800</td><td><span class="badge badge-gray">—</span></td><td><span class="td-sub">—</span></td><td><span class="badge badge-red">Overdue</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── PACKAGES ── -->
+      <div class="crm-panel" id="panel-packages">
+        <div class="crm-cards-grid">
+          <div class="crm-card">
+            <div class="crm-card-img">🛳️</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">Secrets of the Nile</div>
+              <div class="crm-card-sub">10 days · Luxor to Aswan · Nile Cruise</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-blue">Nile Cruise</span>
+                <span class="badge badge-gray">Temples</span>
+                <span class="badge badge-green">Best Seller</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price">$2,700<span style="font-size:12px;color:var(--crm-text-dim);font-family:'Inter',sans-serif;"> /pax</span></div>
+                <div class="crm-card-actions">
+                  <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-card-img">🏛️</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">Majestic Egypt</div>
+              <div class="crm-card-sub">11 days · Cairo, Luxor, Abu Simbel</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-amber">Pyramids</span>
+                <span class="badge badge-gray">Temples</span>
+                <span class="badge badge-blue">Classic</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price">$3,200<span style="font-size:12px;color:var(--crm-text-dim);font-family:'Inter',sans-serif;"> /pax</span></div>
+                <div class="crm-card-actions">
+                  <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-card-img">🌴</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">Siwa Desert Safari</div>
+              <div class="crm-card-sub">5 days · Siwa Oasis · Desert Camp</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-gold">Desert</span>
+                <span class="badge badge-gray">Off-Road</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price">$1,800<span style="font-size:12px;color:var(--crm-text-dim);font-family:'Inter',sans-serif;"> /pax</span></div>
+                <div class="crm-card-actions">
+                  <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-card-img">🤿</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">Red Sea Escape</div>
+              <div class="crm-card-sub">6 days · Hurghada · Diving & Snorkelling</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-blue">Diving</span>
+                <span class="badge badge-green">Beach</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price">$1,600<span style="font-size:12px;color:var(--crm-text-dim);font-family:'Inter',sans-serif;"> /pax</span></div>
+                <div class="crm-card-actions">
+                  <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-card-img">🗺️</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">Tailor-Made Journey</div>
+              <div class="crm-card-sub">Flexible days · Any destination</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-gold">Custom</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price" style="font-size:16px;">Custom</div>
+                <div class="crm-card-actions">
+                  <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card" style="border:2px dashed var(--crm-border);background:transparent;display:flex;align-items:center;justify-content:center;min-height:220px;cursor:pointer;" onclick="openModal('package')">
+            <div style="text-align:center;color:var(--crm-text-dim);">
+              <div style="font-size:32px;margin-bottom:8px;">+</div>
+              <div style="font-size:13px;font-weight:500;">Add Package</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HOTELS ── -->
+      <div class="crm-panel" id="panel-hotels">
+        <div class="crm-cards-grid">
+          <div class="crm-card">
+            <div class="crm-card-img">🏨</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">Marriott Mena House</div>
+              <div class="crm-card-sub">Cairo · Pyramid Views · 5★</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-gold">Luxury</span>
+                <span class="badge badge-gray">Cairo</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price">$320<span style="font-size:12px;color:var(--crm-text-dim);font-family:'Inter',sans-serif;"> /night</span></div>
+                <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-card-img">🏨</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">Sofitel Winter Palace</div>
+              <div class="crm-card-sub">Luxor · Nile Views · 5★</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-gold">Luxury</span>
+                <span class="badge badge-amber">Luxor</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price">$280<span style="font-size:12px;color:var(--crm-text-dim);font-family:'Inter',sans-serif;"> /night</span></div>
+                <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-card-img">🛳️</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">MS Mayfair Nile Cruise</div>
+              <div class="crm-card-sub">Luxor → Aswan · Cruise Ship · 5★</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-blue">Cruise</span>
+                <span class="badge badge-gold">Luxury</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price">$180<span style="font-size:12px;color:var(--crm-text-dim);font-family:'Inter',sans-serif;"> /pax/night</span></div>
+                <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-card-img">⛺</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">Siwa Eco Desert Camp</div>
+              <div class="crm-card-sub">Siwa Oasis · Eco Lodge · 4★</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-green">Eco</span>
+                <span class="badge badge-gold">Desert</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price">$120<span style="font-size:12px;color:var(--crm-text-dim);font-family:'Inter',sans-serif;"> /night</span></div>
+                <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-card-img">🏨</div>
+            <div class="crm-card-body">
+              <div class="crm-card-name">Movenpick Aswan</div>
+              <div class="crm-card-sub">Aswan · Nile Island · 5★</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                <span class="badge badge-gold">Luxury</span>
+                <span class="badge badge-blue">Aswan</span>
+              </div>
+              <div class="crm-card-meta">
+                <div class="crm-card-price">$240<span style="font-size:12px;color:var(--crm-text-dim);font-family:'Inter',sans-serif;"> /night</span></div>
+                <button class="crm-btn crm-btn-ghost" style="padding:6px 12px;font-size:12px;">Edit</button>
+              </div>
+            </div>
+          </div>
+          <div class="crm-card" style="border:2px dashed var(--crm-border);background:transparent;display:flex;align-items:center;justify-content:center;min-height:220px;cursor:pointer;" onclick="openModal('hotel')">
+            <div style="text-align:center;color:var(--crm-text-dim);">
+              <div style="font-size:32px;margin-bottom:8px;">+</div>
+              <div style="font-size:13px;font-weight:500;">Add Hotel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TRANSPORT ── -->
+      <div class="crm-panel" id="panel-transport">
+        <div class="crm-table-wrap">
+          <div class="crm-table-header">
+            <div class="crm-table-title">Transport Options</div>
+          </div>
+          <table>
+            <thead><tr><th>Type</th><th>Provider</th><th>Route / Use</th><th>Capacity</th><th>Rate</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge badge-blue">Private Car</span></td><td>Cairo VIP Cars</td><td>Airport transfers, city tours</td><td>4 pax</td><td>$60 / trip</td><td><span class="badge badge-green">Available</span></td><td><button class="tbl-action">Edit</button></td></tr>
+              <tr><td><span class="badge badge-blue">Minivan</span></td><td>Egypt Tours Transport</td><td>Group transfers, all cities</td><td>12 pax</td><td>$90 / trip</td><td><span class="badge badge-green">Available</span></td><td><button class="tbl-action">Edit</button></td></tr>
+              <tr><td><span class="badge badge-amber">Domestic Flight</span></td><td>EgyptAir</td><td>Cairo → Luxor / Aswan</td><td>—</td><td>$80–$140 /pax</td><td><span class="badge badge-green">Available</span></td><td><button class="tbl-action">Edit</button></td></tr>
+              <tr><td><span class="badge badge-gold">Nile Cruise</span></td><td>MS Mayfair</td><td>Luxor → Aswan (4 nights)</td><td>40 pax</td><td>$180 /pax/night</td><td><span class="badge badge-amber">Seasonal</span></td><td><button class="tbl-action">Edit</button></td></tr>
+              <tr><td><span class="badge badge-gray">Felucca</span></td><td>Local operators</td><td>Aswan Nile tours</td><td>8 pax</td><td>$30 / hour</td><td><span class="badge badge-green">Available</span></td><td><button class="tbl-action">Edit</button></td></tr>
+              <tr><td><span class="badge badge-green">4×4 Off-Road</span></td><td>Siwa Desert Co.</td><td>Siwa desert excursions</td><td>5 pax</td><td>$150 / day</td><td><span class="badge badge-green">Available</span></td><td><button class="tbl-action">Edit</button></td></tr>
+              <tr><td><span class="badge badge-gray">Horse Carriage</span></td><td>Luxor Local</td><td>Luxor temple area</td><td>2 pax</td><td>$15 / hour</td><td><span class="badge badge-green">Available</span></td><td><button class="tbl-action">Edit</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:16px;display:flex;justify-content:flex-end;">
+          <button class="crm-btn crm-btn-primary" onclick="openModal('transport')">+ Add Transport</button>
+        </div>
+      </div>
+
+    </div><!-- /crm-content -->
+  </div><!-- /crm-main -->
+
+  <!-- DETAIL PANEL -->
+  <div class="crm-detail" id="crm-detail">
+    <div class="crm-detail-head">
+      <div>
+        <div style="font-size:16px;font-weight:600;" id="detail-name">Client Name</div>
+        <div style="font-size:12px;color:var(--crm-text-dim);margin-top:2px;" id="detail-sub">Ref · Package</div>
+      </div>
+      <button class="crm-detail-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="crm-detail-body" id="detail-body"></div>
+  </div>
+
+  </div><!-- /crm-body -->
+</div><!-- /crm-layout -->
+</div><!-- /crm-app -->
+
+<!-- ============================================================
+     MODALS
+     ============================================================ -->
+<div class="crm-modal-backdrop" id="modal-client">
+  <div class="crm-modal">
+    <div class="crm-modal-head"><h3>New Client</h3><button class="crm-modal-close" onclick="closeModal('client')">✕</button></div>
+    <div class="crm-modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="Hatim"></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" placeholder="Al Anwar"></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="hatim@email.com"></div>
+        <div class="form-group"><label class="form-label">WhatsApp</label><input class="form-input" placeholder="+1 909 555 0101"></div>
+        <div class="form-group"><label class="form-label">Nationality</label><input class="form-input" placeholder="American"></div>
+        <div class="form-group"><label class="form-label">City / Country</label><input class="form-input" placeholder="California, USA"></div>
+        <div class="form-group"><label class="form-label">Package</label>
+          <select class="form-select"><option>Secrets of the Nile</option><option>Majestic Egypt</option><option>Siwa Desert Safari</option><option>Red Sea Escape</option><option>Tailor-Made Journey</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">No. of Travellers</label><input class="form-input" type="number" placeholder="2" min="1"></div>
+        <div class="form-group"><label class="form-label">Travel Date (From)</label><input class="form-input" type="date"></div>
+        <div class="form-group"><label class="form-label">Travel Date (To)</label><input class="form-input" type="date"></div>
+        <div class="form-group"><label class="form-label">Total Price ($)</label><input class="form-input" type="number" placeholder="2700"></div>
+        <div class="form-group"><label class="form-label">Deposit Paid ($)</label><input class="form-input" type="number" placeholder="800"></div>
+        <div class="form-group"><label class="form-label">Payment Method</label>
+          <select class="form-select"><option>Cash</option><option>Bank Transfer</option><option>WhatsApp Pay</option><option>Card</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Status</label>
+          <select class="form-select"><option>In Planning</option><option>Deposit Paid</option><option>Confirmed</option><option>Completed</option><option>Cancelled</option></select>
+        </div>
+        <div class="form-group full"><label class="form-label">Notes / Special Requests</label><textarea class="form-textarea" placeholder="Dietary requirements, room preferences, interests…"></textarea></div>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="crm-btn crm-btn-ghost" onclick="closeModal('client')">Cancel</button>
+      <button class="crm-btn crm-btn-primary" onclick="closeModal('client')">Save Client</button>
+    </div>
+  </div>
+</div>
+
+<div class="crm-modal-backdrop" id="modal-hotel">
+  <div class="crm-modal">
+    <div class="crm-modal-head"><h3>Add Hotel</h3><button class="crm-modal-close" onclick="closeModal('hotel')">✕</button></div>
+    <div class="crm-modal-body">
+      <div class="form-grid">
+        <div class="form-group full"><label class="form-label">Hotel Name</label><input class="form-input" placeholder="Marriott Mena House"></div>
+        <div class="form-group"><label class="form-label">City</label><input class="form-input" placeholder="Cairo"></div>
+        <div class="form-group"><label class="form-label">Star Rating</label><select class="form-select"><option>5★</option><option>4★</option><option>3★</option><option>Boutique</option></select></div>
+        <div class="form-group"><label class="form-label">Rate per Night ($)</label><input class="form-input" type="number" placeholder="320"></div>
+        <div class="form-group"><label class="form-label">Room Types</label><input class="form-input" placeholder="Deluxe, Suite, Pool View"></div>
+        <div class="form-group"><label class="form-label">Contact / Booker</label><input class="form-input" placeholder="reservations@hotel.com"></div>
+        <div class="form-group full"><label class="form-label">Notes</label><textarea class="form-textarea" placeholder="Availability notes, preferred rooms, commission…"></textarea></div>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="crm-btn crm-btn-ghost" onclick="closeModal('hotel')">Cancel</button>
+      <button class="crm-btn crm-btn-primary" onclick="closeModal('hotel')">Save Hotel</button>
+    </div>
+  </div>
+</div>
+
+<div class="crm-modal-backdrop" id="modal-transport">
+  <div class="crm-modal">
+    <div class="crm-modal-head"><h3>Add Transport</h3><button class="crm-modal-close" onclick="closeModal('transport')">✕</button></div>
+    <div class="crm-modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label">Type</label><select class="form-select"><option>Private Car</option><option>Minivan</option><option>Domestic Flight</option><option>Nile Cruise</option><option>4×4 Off-Road</option><option>Felucca</option><option>Other</option></select></div>
+        <div class="form-group"><label class="form-label">Provider Name</label><input class="form-input" placeholder="Cairo VIP Cars"></div>
+        <div class="form-group"><label class="form-label">Route / Use</label><input class="form-input" placeholder="Airport → Hotel, city tours"></div>
+        <div class="form-group"><label class="form-label">Capacity (pax)</label><input class="form-input" type="number" placeholder="4"></div>
+        <div class="form-group"><label class="form-label">Rate</label><input class="form-input" placeholder="$60 / trip"></div>
+        <div class="form-group"><label class="form-label">Availability</label><select class="form-select"><option>Year-round</option><option>Seasonal</option><option>On Request</option></select></div>
+        <div class="form-group full"><label class="form-label">Notes</label><textarea class="form-textarea" placeholder="Contact info, booking lead time, special notes…"></textarea></div>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="crm-btn crm-btn-ghost" onclick="closeModal('transport')">Cancel</button>
+      <button class="crm-btn crm-btn-primary" onclick="closeModal('transport')">Save Transport</button>
+    </div>
+  </div>
+</div>
+
+<div class="crm-modal-backdrop" id="modal-package">
+  <div class="crm-modal">
+    <div class="crm-modal-head"><h3>Add Package</h3><button class="crm-modal-close" onclick="closeModal('package')">✕</button></div>
+    <div class="crm-modal-body">
+      <div class="form-grid">
+        <div class="form-group full"><label class="form-label">Package Name</label><input class="form-input" placeholder="Secrets of the Nile"></div>
+        <div class="form-group"><label class="form-label">Duration (days)</label><input class="form-input" type="number" placeholder="10"></div>
+        <div class="form-group"><label class="form-label">Price per Person ($)</label><input class="form-input" type="number" placeholder="2700"></div>
+        <div class="form-group full"><label class="form-label">Destinations / Route</label><input class="form-input" placeholder="Cairo → Luxor → Aswan"></div>
+        <div class="form-group full"><label class="form-label">Inclusions</label><textarea class="form-textarea" placeholder="Flights, hotels, private guide, entrance fees, Nile cruise…"></textarea></div>
+        <div class="form-group full"><label class="form-label">Exclusions</label><textarea class="form-textarea" placeholder="International flights, visa fees, personal expenses…"></textarea></div>
+        <div class="form-group full"><label class="form-label">Day-by-Day Overview</label><textarea class="form-textarea" style="min-height:120px;" placeholder="Day 1: Cairo arrival, Pyramids…&#10;Day 2: Egyptian Museum, Khan el-Khalili…"></textarea></div>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="crm-btn crm-btn-ghost" onclick="closeModal('package')">Cancel</button>
+      <button class="crm-btn crm-btn-primary" onclick="closeModal('package')">Save Package</button>
+    </div>
+  </div>
+</div>
+
+<div class="crm-modal-backdrop" id="modal-payment">
+  <div class="crm-modal">
+    <div class="crm-modal-head"><h3>Log Payment</h3><button class="crm-modal-close" onclick="closeModal('payment')">✕</button></div>
+    <div class="crm-modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label">Client</label>
+          <select class="form-select">
+            <option>Hatim Al Anwar</option>
+            <option>Ali Chathiwala</option>
+            <option>Huzefa Haryana</option>
+            <option>Fatima Siddiqui</option>
+            <option>Omar Rashid</option>
+            <option>Sarah Mitchell</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Itinerary Reference</label>
+          <select class="form-select">
+            <option>AE-001</option><option>AE-002</option><option>AE-003</option>
+            <option>AE-004</option><option>AE-005</option><option>AE-006</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Payment Type</label>
+          <select class="form-select">
+            <option>Deposit</option>
+            <option>Partial Payment</option>
+            <option>Balance</option>
+            <option>Full Payment</option>
+            <option>Refund</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Amount ($)</label>
+          <input class="form-input" type="number" placeholder="800">
+        </div>
+        <div class="form-group"><label class="form-label">Payment Date</label>
+          <input class="form-input" type="date">
+        </div>
+        <div class="form-group"><label class="form-label">Status</label>
+          <select class="form-select">
+            <option>Received</option>
+            <option>Pending</option>
+            <option>Overdue</option>
+            <option>Refunded</option>
+          </select>
+        </div>
+
+        <!-- PAYMENT METHOD — triggers cash fields -->
+        <div class="form-group full"><label class="form-label">Payment Method</label>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:4px;" id="method-options">
+            <label class="method-pill" onclick="selectMethod(this,'Cash')">
+              <input type="radio" name="pay_method" value="Cash" style="display:none">
+              💵 Cash
+            </label>
+            <label class="method-pill" onclick="selectMethod(this,'Card')">
+              <input type="radio" name="pay_method" value="Card" style="display:none">
+              💳 Card
+            </label>
+            <label class="method-pill" onclick="selectMethod(this,'Cheque')">
+              <input type="radio" name="pay_method" value="Cheque" style="display:none">
+              🗒️ Cheque
+            </label>
+            <label class="method-pill" onclick="selectMethod(this,'Bank Transfer')">
+              <input type="radio" name="pay_method" value="Bank Transfer" style="display:none">
+              🏦 Bank Transfer
+            </label>
+            <label class="method-pill" onclick="selectMethod(this,'WhatsApp Pay')">
+              <input type="radio" name="pay_method" value="WhatsApp Pay" style="display:none">
+              💬 WhatsApp Pay
+            </label>
+          </div>
+        </div>
+
+        <!-- CASH ONLY FIELDS — shown when Cash is selected -->
+        <div class="form-group full" id="cash-fields" style="display:none;background:#FFFBEB;border:1px solid #FDE68A;border-radius:6px;padding:16px;">
+          <div style="font-size:12px;font-weight:600;color:#92400E;margin-bottom:12px;">💵 Cash Handover Details</div>
+          <div class="form-grid" style="margin:0;">
+            <div class="form-group"><label class="form-label">Cash Handed To (Name)</label>
+              <input class="form-input" id="cash-recipient" placeholder="e.g. Mohamed Youssef">
+            </div>
+            <div class="form-group"><label class="form-label">Their Role</label>
+              <select class="form-select" id="cash-role">
+                <option>Agent / Staff</option>
+                <option>Tour Guide</option>
+                <option>Hotel Rep</option>
+                <option>Driver</option>
+                <option>Owner</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group full"><label class="form-label">Location / Notes</label>
+              <input class="form-input" id="cash-location" placeholder="e.g. Cairo office, lobby of Mena House…">
+            </div>
+          </div>
+        </div>
+
+        <!-- CHEQUE FIELDS -->
+        <div class="form-group full" id="cheque-fields" style="display:none;background:#F0F9FF;border:1px solid #BAE6FD;border-radius:6px;padding:16px;">
+          <div style="font-size:12px;font-weight:600;color:#075985;margin-bottom:12px;">🗒️ Cheque Details</div>
+          <div class="form-grid" style="margin:0;">
+            <div class="form-group"><label class="form-label">Cheque Number</label>
+              <input class="form-input" placeholder="e.g. 004821">
+            </div>
+            <div class="form-group"><label class="form-label">Bank Name</label>
+              <input class="form-input" placeholder="e.g. CIB Egypt">
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD FIELDS -->
+        <div class="form-group full" id="card-fields" style="display:none;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:6px;padding:16px;">
+          <div style="font-size:12px;font-weight:600;color:#065F46;margin-bottom:12px;">💳 Card Details</div>
+          <div class="form-grid" style="margin:0;">
+            <div class="form-group"><label class="form-label">Last 4 Digits</label>
+              <input class="form-input" placeholder="e.g. 4242" maxlength="4">
+            </div>
+            <div class="form-group"><label class="form-label">Card Type</label>
+              <select class="form-select"><option>Visa</option><option>Mastercard</option><option>Amex</option><option>Other</option></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group full"><label class="form-label">Internal Notes</label>
+          <textarea class="form-textarea" placeholder="Any additional notes about this payment…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="crm-btn crm-btn-ghost" onclick="closeModal('payment')">Cancel</button>
+      <button class="crm-btn crm-btn-primary" onclick="closeModal('payment')">Save Payment</button>
+    </div>
+  </div>
+</div>
+
+<div class="crm-modal-backdrop" id="modal-itinerary">
+  <div class="crm-modal" style="width:640px;">
+    <div class="crm-modal-head"><h3 id="itin-modal-title">Itinerary — AE-001</h3><button class="crm-modal-close" onclick="closeModal('itinerary')">✕</button></div>
+    <div class="crm-modal-body" id="itin-modal-body"></div>
+    <div class="crm-modal-footer">
+      <button class="crm-btn crm-btn-ghost" onclick="closeModal('itinerary')">Close</button>
+      <button class="crm-btn crm-btn-primary">Send to Client</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── NAVIGATION ──
+function openCRM() {
+  document.body.classList.add('crm-mode');
+  window.scrollTo(0,0);
+}
+function closeCRM() {
+  document.body.classList.remove('crm-mode');
+  window.scrollTo(0,0);
+}
+
+const panelConfig = {
+  dashboard:   { title: 'Dashboard',        primary: '+ New Client',   action: 'client' },
+  clients:     { title: 'Clients',          primary: '+ New Client',   action: 'client' },
+  itineraries: { title: 'Itineraries',      primary: '+ New Itinerary', action: null },
+  payments:    { title: 'Payments',         primary: '+ Log Payment',  action: 'payment' },
+  packages:    { title: 'Packages',         primary: '+ Add Package',  action: 'package' },
+  hotels:      { title: 'Hotels',           primary: '+ Add Hotel',    action: 'hotel' },
+  transport:   { title: 'Transport',        primary: '+ Add Transport', action: 'transport' },
+};
+
+function showPanel(id, el) {
+  document.querySelectorAll('.crm-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelectorAll('.crm-nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+  const cfg = panelConfig[id];
+  document.getElementById('crm-title').textContent = cfg.title;
+  const pb = document.getElementById('crm-top-primary');
+  pb.textContent = cfg.primary;
+  pb.onclick = cfg.action ? () => openModal(cfg.action) : null;
+  closeDetail();
+}
+
+function handlePrimaryAction() {
+  openModal('client');
+}
+
+// ── MODALS ──
+function openModal(type) {
+  document.getElementById('modal-'+type).classList.add('open');
+}
+function closeModal(type) {
+  document.getElementById('modal-'+type).classList.remove('open');
+}
+document.querySelectorAll('.crm-modal-backdrop').forEach(b => {
+  b.addEventListener('click', e => { if (e.target === b) b.classList.remove('open'); });
+});
+
+// ── CLIENT DETAIL ──
+const clients = [
+  { name:'Hatim Al Anwar', ref:'AE-001', pkg:'Secrets of the Nile', origin:'California, USA', wa:'+1 909 555 0101', email:'hatim@alanwar.com', depart:'Jun 14, 2025', ret:'Jun 24, 2025', pax:2, total:'$5,400', paid:'$5,400', balance:'$0', status:'Confirmed', hotel:'Marriott Mena House + MS Mayfair Cruise', transport:'Private Car · Domestic Flight · Nile Cruise', notes:'Prefers early morning temple visits. Vegetarian meals.' },
+  { name:'Ali Chathiwala', ref:'AE-002', pkg:'Majestic Egypt', origin:'Illinois, USA', wa:'+1 312 555 0188', email:'ali@email.com', depart:'Jun 22, 2025', ret:'Jul 3, 2025', pax:4, total:'$12,800', paid:'$12,800', balance:'$0', status:'Confirmed', hotel:'Sofitel Winter Palace · Marriott Cairo', transport:'Private Minivan · Domestic Flight', notes:'Family of 4. Two children. Needs family rooms.' },
+  { name:'Huzefa Haryana', ref:'AE-003', pkg:'Custom 7 days', origin:'New York, USA', wa:'+1 212 555 0199', email:'huzefa@email.com', depart:'Jul 3, 2025', ret:'Jul 10, 2025', pax:2, total:'$5,400', paid:'$3,500', balance:'$1,900', status:'Deposit Paid', hotel:'TBC', transport:'TBC', notes:'Interested in photography tours. Sunrise Pyramids.' },
+  { name:'Fatima Siddiqui', ref:'AE-004', pkg:'Nile Cruise 10 days', origin:'Dubai, UAE', wa:'+971 50 555 0142', email:'fatima@email.com', depart:'Jul 18, 2025', ret:'Jul 28, 2025', pax:2, total:'$5,400', paid:'$3,200', balance:'$2,200', status:'In Planning', hotel:'TBC', transport:'Domestic Flight · Nile Cruise', notes:'Halal food required. Arabic speaker.' },
+  { name:'Omar Rashid', ref:'AE-005', pkg:'Siwa Safari 5 days', origin:'London, UK', wa:'+44 7700 900155', email:'omar@email.com', depart:'Aug 2, 2025', ret:'Aug 7, 2025', pax:2, total:'$3,600', paid:'$1,800', balance:'$1,800', status:'Deposit Paid', hotel:'Siwa Eco Desert Camp', transport:'Private Car · 4×4 Off-Road', notes:'Adventure traveller. Camping preferred.' },
+  { name:'Sarah Mitchell', ref:'AE-006', pkg:'Tailor-Made 9 days', origin:'Toronto, Canada', wa:'+1 416 555 0177', email:'sarah@email.com', depart:'Aug 15, 2025', ret:'Aug 24, 2025', pax:2, total:'$6,000', paid:'$3,600', balance:'$2,400', status:'In Planning', hotel:'TBC', transport:'TBC', notes:'Solo travel experience. Interested in local culture.' },
+];
+
+function openClient(i) {
+  const c = clients[i];
+  document.getElementById('detail-name').textContent = c.name;
+  document.getElementById('detail-sub').textContent = c.ref + ' · ' + c.pkg;
+  document.getElementById('detail-body').innerHTML = `
+    <div class="detail-section">
+      <div class="detail-section-title">Contact</div>
+      <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val">${c.email}</span></div>
+      <div class="detail-row"><span class="detail-key">WhatsApp</span><span class="detail-val">${c.wa}</span></div>
+      <div class="detail-row"><span class="detail-key">Origin</span><span class="detail-val">${c.origin}</span></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Trip</div>
+      <div class="detail-row"><span class="detail-key">Package</span><span class="detail-val">${c.pkg}</span></div>
+      <div class="detail-row"><span class="detail-key">Departure</span><span class="detail-val">${c.depart}</span></div>
+      <div class="detail-row"><span class="detail-key">Return</span><span class="detail-val">${c.ret}</span></div>
+      <div class="detail-row"><span class="detail-key">Travellers</span><span class="detail-val">${c.pax} pax</span></div>
+      <div class="detail-row"><span class="detail-key">Status</span><span class="detail-val">${c.status}</span></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Financials</div>
+      <div class="detail-row"><span class="detail-key">Total Value</span><span class="detail-val" style="color:var(--crm-text);font-weight:600;">${c.total}</span></div>
+      <div class="detail-row"><span class="detail-key">Paid</span><span class="detail-val" style="color:var(--crm-green);">${c.paid}</span></div>
+      <div class="detail-row"><span class="detail-key">Balance Due</span><span class="detail-val" style="color:${c.balance==='$0'?'var(--crm-green)':'var(--crm-red)'};">${c.balance}</span></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Logistics</div>
+      <div class="detail-row"><span class="detail-key">Hotel</span><span class="detail-val">${c.hotel}</span></div>
+      <div class="detail-row"><span class="detail-key">Transport</span><span class="detail-val">${c.transport}</span></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Notes</div>
+      <div style="font-size:13px;color:var(--crm-text-dim);line-height:1.6;">${c.notes}</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <a href="https://wa.me/${c.wa.replace(/[^0-9]/g,'')}" target="_blank" class="crm-btn crm-btn-primary" style="flex:1;text-align:center;text-decoration:none;font-size:12px;">💬 WhatsApp</a>
+      <button class="crm-btn crm-btn-ghost" style="flex:1;font-size:12px;">✏️ Edit</button>
+    </div>
+  `;
+  document.getElementById('crm-detail').classList.add('open');
+}
+
+// ── ITINERARY DETAIL ──
+const itineraries = [
+  { ref:'AE-001', client:'Hatim Al Anwar', pkg:'Secrets of the Nile', days:[
+    { title:'Cairo Arrival', detail:'Airport pickup · Mena House hotel check-in · Welcome dinner', tags:['Transfer','Hotel'] },
+    { title:'Pyramids & Sphinx', detail:'Private sunrise visit to Giza Pyramids · Egyptian Museum · Khan el-Khalili bazaar', tags:['Sightseeing','Guide'] },
+    { title:'Fly to Luxor', detail:'Domestic flight · Sofitel Winter Palace check-in · Karnak Temple at sunset', tags:['Flight','Hotel','Temple'] },
+    { title:'Valley of the Kings', detail:'Private morning tour · Hatshepsut Temple · Luxor Temple at night', tags:['Sightseeing','Guide'] },
+    { title:'Board Nile Cruise', detail:'MS Mayfair embarkation · Edfu Temple by horse carriage', tags:['Cruise','Temple'] },
+    { title:'Kom Ombo & Aswan', detail:'Kom Ombo crocodile temple · Arrival Aswan · Philae Temple', tags:['Temple','Cruise'] },
+    { title:'Abu Simbel Day Trip', detail:'Early flight to Abu Simbel · Return to Aswan · Nubian village visit', tags:['Flight','Sightseeing'] },
+    { title:'Felucca & Souq', detail:'Morning felucca sailing · Aswan souq · Farewell dinner', tags:['Activity','Leisure'] },
+  ]},
+  { ref:'AE-002', client:'Ali Chathiwala', pkg:'Majestic Egypt', days:[
+    { title:'Cairo Arrival', detail:'VIP airport meet · Marriott Cairo check-in · City orientation', tags:['Transfer','Hotel'] },
+    { title:'Giza Plateau', detail:'Pyramids · Sphinx · Solar Boat Museum · Panorama viewpoint', tags:['Sightseeing','Guide'] },
+    { title:'Cairo Museums', detail:'Egyptian Museum · Coptic Cairo · Islamic Cairo old city walk', tags:['Culture','Guide'] },
+    { title:'Fly to Luxor', detail:'Morning flight · Karnak Temple · Luxor Museum', tags:['Flight','Temple'] },
+  ]},
+];
+
+function openItinerary(i) {
+  const itin = itineraries[i] || itineraries[0];
+  document.getElementById('itin-modal-title').textContent = `Itinerary — ${itin.ref} · ${itin.client}`;
+  const body = itin.days.map((d,idx) => `
+    <div class="timeline-day">
+      <div class="timeline-day-num">${idx+1}</div>
+      <div class="timeline-day-content">
+        <div class="timeline-day-title">${d.title}</div>
+        <div class="timeline-day-detail">${d.detail}</div>
+        <div class="timeline-day-tags">${d.tags.map(t=>`<span class="badge badge-gray">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('itin-modal-body').innerHTML = `<div class="timeline">${body}</div>`;
+  openModal('itinerary');
+}
+
+function closeDetail() {
+  document.getElementById('crm-detail').classList.remove('open');
+}
+
+// ── PAYMENT METHOD TOGGLE ──
+function selectMethod(el, method) {
+  // Toggle pill selection
+  document.querySelectorAll('.method-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  // Hide all conditional fields
+  ['cash-fields','cheque-fields','card-fields'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+  // Show relevant field
+  if (method === 'Cash')   document.getElementById('cash-fields').style.display = 'block';
+  if (method === 'Cheque') document.getElementById('cheque-fields').style.display = 'block';
+  if (method === 'Card')   document.getElementById('card-fields').style.display = 'block';
+}
+
+// ── SEARCH ──
+function filterTable(input, tbodyId) {
+  const q = input.value.toLowerCase();
+  document.querySelectorAll(`#${tbodyId} tr`).forEach(tr => {
+    tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Trip — Amazing Egypt</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #A0722A;
+  --gold-light: #C49A3C;
+  --gold-dim: rgba(160,114,42,0.15);
+  --night: #FAF7F2;
+  --night-mid: #F0EBE1;
+  --papyrus: #1C1812;
+  --text-dim: rgba(28,24,18,0.45);
+  --teal: #1B5768;
+  --border: #E8DDD0;
+  --green: #10B981;
+  --amber: #F59E0B;
+  --red: #EF4444;
+  --blue: #3B82F6;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--night); color: var(--papyrus); min-height: 100vh; }
+
+/* NAV */
+nav {
+  background: #1C1812; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; position: sticky; top: 0; z-index: 100;
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--gold); text-decoration: none; }
+.nav-logo span { color: rgba(255,255,255,0.8); font-weight: 300; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+.nav-link:hover { color: var(--gold); }
+.nav-wa { background: #25D366; color: white; padding: 8px 16px; font-size: 12px; font-weight: 600; text-decoration: none; border-radius: 4px; }
+
+/* LOGIN SCREEN */
+#login-screen {
+  min-height: calc(100vh - 64px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 24px;
+  background: var(--night);
+}
+.login-card {
+  background: white; border: 1px solid var(--border);
+  padding: 48px; width: 440px; max-width: 100%;
+}
+.login-eyebrow { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.login-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--papyrus); margin-bottom: 8px; line-height: 1.1; }
+.login-title em { font-style: italic; color: var(--gold); }
+.login-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 32px; line-height: 1.6; }
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 12px; font-weight: 500; color: var(--text-dim); margin-bottom: 6px; letter-spacing: 0.04em; }
+.form-input {
+  width: 100%; padding: 11px 14px; border: 1px solid var(--border);
+  font-size: 14px; font-family: 'Inter', sans-serif; color: var(--papyrus);
+  outline: none; transition: border-color 0.2s; background: var(--night);
+}
+.form-input:focus { border-color: var(--gold); background: white; }
+.btn-login {
+  width: 100%; padding: 13px; background: var(--gold); color: white;
+  border: none; font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; cursor: pointer; margin-top: 8px; transition: background 0.2s;
+}
+.btn-login:hover { background: var(--gold-light); }
+.login-error { font-size: 13px; color: var(--red); margin-top: 12px; display: none; }
+.login-help { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); text-align: center; line-height: 1.7; }
+.login-help a { color: var(--gold); text-decoration: none; }
+
+/* PORTAL */
+#portal-screen { display: none; }
+
+/* PORTAL HEADER */
+.portal-header {
+  background: #1C1812; padding: 32px 48px;
+  border-bottom: 3px solid var(--gold);
+}
+.portal-header-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+.portal-greeting { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: white; line-height: 1.1; }
+.portal-greeting em { font-style: italic; color: var(--gold); }
+.portal-ref { font-size: 12px; letter-spacing: 0.15em; color: rgba(255,255,255,0.4); margin-top: 6px; }
+.portal-status-block { text-align: right; }
+.portal-status-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
+
+/* PORTAL BODY */
+.portal-body { max-width: 1100px; margin: 0 auto; padding: 36px 48px 80px; }
+
+/* SECTION */
+.p-section { margin-bottom: 36px; }
+.p-section-title {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* TRIP OVERVIEW CARDS */
+.overview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 36px; }
+.overview-card { background: white; border: 1px solid var(--border); padding: 20px 22px; }
+.ov-label { font-size: 11px; color: var(--text-dim); letter-spacing: 0.05em; margin-bottom: 6px; }
+.ov-value { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--papyrus); font-weight: 300; line-height: 1; }
+.ov-sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+/* PAYMENT SUMMARY */
+.payment-summary { background: white; border: 1px solid var(--border); padding: 24px; }
+.pay-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.pay-row:last-child { border-bottom: none; }
+.pay-row-label { color: var(--text-dim); }
+.pay-row-val { font-weight: 600; }
+.pay-row-val.green { color: var(--green); }
+.pay-row-val.red { color: var(--red); }
+.pay-row-val.gold { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 20px; }
+
+/* PROGRESS BAR */
+.pay-progress-wrap { margin: 20px 0 8px; }
+.pay-progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
+.pay-progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.pay-progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.6s ease; }
+
+/* ITINERARY TIMELINE */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.tl-day { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+.tl-day:last-child { border-bottom: none; }
+.tl-num { width: 40px; min-width: 40px; height: 40px; background: var(--gold); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; margin-top: 2px; flex-shrink: 0; }
+.tl-content { flex: 1; }
+.tl-day-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 4px; }
+.tl-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--papyrus); margin-bottom: 6px; }
+.tl-detail { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 10px; }
+.tl-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { display: inline-block; padding: 3px 10px; font-size: 11px; background: var(--night-mid); color: var(--text-dim); border: 1px solid var(--border); }
+
+/* LOGISTICS */
+.logistics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.logistics-card { background: white; border: 1px solid var(--border); padding: 20px 22px; }
+.lc-icon { font-size: 24px; margin-bottom: 10px; }
+.lc-type { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 4px; }
+.lc-name { font-size: 15px; font-weight: 600; color: var(--papyrus); margin-bottom: 4px; }
+.lc-detail { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+
+/* BADGES */
+.badge { display: inline-block; padding: 4px 12px; font-size: 12px; font-weight: 500; border-radius: 20px; }
+.badge-green  { background: #D1FAE5; color: #065F46; }
+.badge-amber  { background: #FEF3C7; color: #92400E; }
+.badge-blue   { background: #DBEAFE; color: #1E40AF; }
+.badge-gold   { background: rgba(160,114,42,0.12); color: #7A5520; }
+
+/* CONTACT BLOCK */
+.contact-block { background: var(--teal); padding: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.contact-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: white; margin-bottom: 6px; }
+.contact-text p { font-size: 13px; color: rgba(255,255,255,0.65); }
+.btn-wa-lg { display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: white; padding: 14px 28px; font-size: 14px; font-weight: 600; text-decoration: none; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+.btn-wa-lg:hover { background: #1ebe5a; }
+
+/* LOGOUT */
+.portal-logout { font-size: 12px; color: rgba(255,255,255,0.4); cursor: pointer; background: none; border: none; transition: color 0.2s; }
+.portal-logout:hover { color: var(--gold); }
+
+/* RESPONSIVE */
+@media (max-width: 760px) {
+  nav { padding: 0 20px; }
+  .portal-header { padding: 24px 20px; }
+  .portal-body { padding: 24px 20px 60px; }
+  .overview-grid { grid-template-columns: 1fr 1fr; }
+  .logistics-grid { grid-template-columns: 1fr; }
+  .login-card { padding: 32px 24px; }
+  .contact-block { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Amazing<span>Egypt</span></a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">← Back to Website</a>
+    <a href="https://wa.me/201112922496" target="_blank" class="nav-wa">💬 WhatsApp Us</a>
+  </div>
+</nav>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-eyebrow">Client Portal</div>
+    <h1 class="login-title">Your <em>Journey</em><br>Awaits</h1>
+    <p class="login-sub">Enter your booking reference and email address to view your personalised itinerary, payment status, and trip details.</p>
+    <div class="form-group">
+      <label class="form-label">Booking Reference</label>
+      <input class="form-input" id="input-ref" placeholder="e.g. AE-003" oninput="this.value = this.value.toUpperCase()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input class="form-input" id="input-email" type="email" placeholder="your@email.com" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" onclick="doLogin()">View My Trip →</button>
+    <div class="login-error" id="login-error">⚠ Booking reference or email not found. Please check and try again, or <a href="https://wa.me/201112922496">contact us on WhatsApp</a>.</div>
+    <div class="login-help">
+      Don't have your reference? <a href="https://wa.me/201112922496?text=Hi%2C%20I%20need%20my%20booking%20reference">Message us on WhatsApp</a> and we'll send it right away.
+    </div>
+  </div>
+</div>
+
+<!-- PORTAL SCREEN -->
+<div id="portal-screen">
+  <div class="portal-header">
+    <div class="portal-header-inner">
+      <div>
+        <div class="portal-greeting" id="portal-greeting">Welcome, <em>Guest</em></div>
+        <div class="portal-ref" id="portal-ref">Booking Reference · Package</div>
+      </div>
+      <div class="portal-status-block">
+        <div class="portal-status-label">Trip Status</div>
+        <div id="portal-status-badge"></div>
+        <button class="portal-logout" onclick="doLogout()" style="margin-top:12px;display:block;">Sign Out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="portal-body">
+
+    <!-- OVERVIEW -->
+    <div class="overview-grid" id="overview-grid"></div>
+
+    <!-- PAYMENT -->
+    <div class="p-section">
+      <div class="p-section-title">Payment Status</div>
+      <div class="payment-summary" id="payment-summary"></div>
+    </div>
+
+    <!-- ITINERARY -->
+    <div class="p-section">
+      <div class="p-section-title">Your Day-by-Day Itinerary</div>
+      <div class="timeline" id="itinerary-timeline"></div>
+    </div>
+
+    <!-- LOGISTICS -->
+    <div class="p-section">
+      <div class="p-section-title">Hotels & Transport</div>
+      <div class="logistics-grid" id="logistics-grid"></div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="p-section">
+      <div class="contact-block">
+        <div class="contact-text">
+          <h3>Questions about your trip?</h3>
+          <p>Your trip coordinator is available on WhatsApp any time.</p>
+        </div>
+        <a class="btn-wa-lg" href="https://wa.me/201112922496?text=Hi%2C%20my%20booking%20ref%20is%20" target="_blank">💬 WhatsApp Your Guide</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── SAMPLE BOOKING DATA ──
+// In production this will be fetched from Supabase by ref + email
+const bookings = [
+  {
+    ref: 'AE-001',
+    email: 'hatim@alanwar.com',
+    name: 'Hatim Al Anwar',
+    package: 'Secrets of the Nile',
+    status: 'Confirmed',
+    statusBadge: 'badge-green',
+    departure: 'Jun 14, 2025',
+    returnDate: 'Jun 24, 2025',
+    pax: 2,
+    duration: '10 Days',
+    totalValue: 5400,
+    totalPaid: 5400,
+    payments: [
+      { date: 'May 20, 2025', type: 'Full Payment', amount: 5400, method: 'Bank Transfer', status: 'Received' }
+    ],
+    days: [
+      { title: 'Cairo Arrival', date: 'Jun 14', detail: 'VIP airport pickup · Mena House hotel check-in · Welcome dinner with Nile views', tags: ['Transfer', 'Hotel', 'Dinner'] },
+      { title: 'Pyramids & Sphinx', date: 'Jun 15', detail: 'Private sunrise visit to Giza Pyramids · Egyptian Museum · Khan el-Khalili bazaar afternoon', tags: ['Sightseeing', 'Guide', 'Museum'] },
+      { title: 'Fly to Luxor', date: 'Jun 16', detail: 'Morning domestic flight · Sofitel Winter Palace check-in · Karnak Temple at sunset', tags: ['Flight', 'Hotel', 'Temple'] },
+      { title: 'Valley of the Kings', date: 'Jun 17', detail: 'Private morning tour of royal tombs · Hatshepsut Temple · Luxor Temple illuminated at night', tags: ['Sightseeing', 'Guide'] },
+      { title: 'Board Nile Cruise', date: 'Jun 18', detail: 'MS Mayfair embarkation at noon · Edfu Temple excursion by horse carriage · Dinner on deck', tags: ['Cruise', 'Temple'] },
+      { title: 'Kom Ombo & Aswan', date: 'Jun 19', detail: 'Kom Ombo crocodile temple · Sail to Aswan · Philae Temple island visit by motorboat', tags: ['Temple', 'Cruise'] },
+      { title: 'Abu Simbel Day Trip', date: 'Jun 20', detail: 'Early morning flight to Abu Simbel · Two iconic temples of Ramesses II · Return to Aswan', tags: ['Flight', 'Sightseeing'] },
+      { title: 'Nubian Village & Felucca', date: 'Jun 21', detail: 'Morning felucca sailing on the Nile · Nubian village home visit · Traditional lunch · Aswan souq', tags: ['Activity', 'Culture', 'Leisure'] },
+      { title: 'Free Day & Farewell', date: 'Jun 22', detail: 'Leisure morning · Optional spa or botanical garden · Farewell dinner at Mövenpick Island', tags: ['Leisure', 'Dinner'] },
+      { title: 'Departure', date: 'Jun 23', detail: 'Hotel checkout · Transfer to Aswan airport · Safe travels home', tags: ['Transfer', 'Departure'] },
+    ],
+    hotel: { name: 'Marriott Mena House (Cairo) + MS Mayfair Nile Cruise + Mövenpick Aswan', stars: '5★', detail: 'Pyramid views in Cairo · Cruise cabin · Nile island hotel in Aswan' },
+    transport: { name: 'Private Car + Domestic Flights + Nile Cruise', detail: 'All transfers included · Cairo→Luxor flight · Aswan→Abu Simbel flight · Cruise Luxor→Aswan' },
+  },
+  {
+    ref: 'AE-003',
+    email: 'huzefa@email.com',
+    name: 'Huzefa Haryana',
+    package: 'Custom Journey · 7 Days',
+    status: 'Deposit Paid',
+    statusBadge: 'badge-amber',
+    departure: 'Jul 3, 2025',
+    returnDate: 'Jul 10, 2025',
+    pax: 2,
+    duration: '7 Days',
+    totalValue: 5400,
+    totalPaid: 3500,
+    payments: [
+      { date: 'May 28, 2025', type: 'Deposit', amount: 800, method: 'Cash', status: 'Received' },
+      { date: 'Jun 15, 2025', type: 'Partial Payment', amount: 2700, method: 'Bank Transfer', status: 'Received' },
+      { date: 'Jul 3, 2025', type: 'Balance Due', amount: 1900, method: '—', status: 'Pending' },
+    ],
+    days: [
+      { title: 'Cairo Arrival', date: 'Jul 3', detail: 'Airport pickup · Hotel check-in · Evening walk in Islamic Cairo', tags: ['Transfer', 'Hotel'] },
+      { title: 'Pyramids Photography Tour', date: 'Jul 4', detail: 'Sunrise shoot at Giza Plateau · Photography guide · Egyptian Museum · Coptic Cairo', tags: ['Photography', 'Guide', 'Museum'] },
+      { title: 'Old Cairo & Markets', date: 'Jul 5', detail: 'Khan el-Khalili deep dive · Street photography · Al-Azhar Mosque · Traditional lunch', tags: ['Culture', 'Photography'] },
+      { title: 'Fly to Aswan', date: 'Jul 6', detail: 'Morning flight · Philae Temple · Nubian village · Felucca at sunset', tags: ['Flight', 'Temple', 'Activity'] },
+      { title: 'Abu Simbel Sunrise', date: 'Jul 7', detail: 'Pre-dawn drive to Abu Simbel · Golden hour shoot at the temples · Return to Aswan', tags: ['Photography', 'Sightseeing'] },
+      { title: 'Aswan Free Day', date: 'Jul 8', detail: 'Botanical garden island · Aswan Dam · Local souq · Farewell Nile dinner', tags: ['Leisure', 'Dinner'] },
+      { title: 'Departure', date: 'Jul 9', detail: 'Hotel checkout · Transfer to airport · Safe travels', tags: ['Transfer', 'Departure'] },
+    ],
+    hotel: { name: 'Kempinski Nile Hotel (Cairo) + Mövenpick Aswan', stars: '5★', detail: 'Nile Garden view rooms · All breakfasts included' },
+    transport: { name: 'Private Car + Domestic Flights', detail: 'All transfers by private vehicle · Cairo→Aswan flight included' },
+  },
+  {
+    ref: 'AE-004',
+    email: 'fatima@email.com',
+    name: 'Fatima Siddiqui',
+    package: 'Nile Cruise · 10 Days',
+    status: 'In Planning',
+    statusBadge: 'badge-blue',
+    departure: 'Jul 18, 2025',
+    returnDate: 'Jul 28, 2025',
+    pax: 2,
+    duration: '10 Days',
+    totalValue: 5400,
+    totalPaid: 3200,
+    payments: [
+      { date: 'May 25, 2025', type: 'Deposit', amount: 500, method: 'WhatsApp Pay', status: 'Received' },
+      { date: 'Jun 10, 2025', type: 'Partial Payment', amount: 2700, method: 'Bank Transfer', status: 'Received' },
+      { date: 'Jul 18, 2025', type: 'Balance Due', amount: 2200, method: '—', status: 'Pending' },
+    ],
+    days: [
+      { title: 'Cairo Arrival', date: 'Jul 18', detail: 'Airport welcome · Halal-friendly hotel check-in · Rest and settle', tags: ['Transfer', 'Hotel'] },
+      { title: 'Giza & Museum', date: 'Jul 19', detail: 'Pyramids of Giza · Sphinx · Grand Egyptian Museum · Halal dinner', tags: ['Sightseeing', 'Museum'] },
+      { title: 'Islamic Cairo', date: 'Jul 20', detail: 'Al-Azhar Mosque · Khan el-Khalili · Coptic quarter · Arabic food tour', tags: ['Culture', 'Food'] },
+      { title: 'Fly to Luxor', date: 'Jul 21', detail: 'Domestic flight · Karnak Temple · Luxor Museum', tags: ['Flight', 'Temple'] },
+      { title: 'West Bank Luxor', date: 'Jul 22', detail: 'Valley of the Kings · Hatshepsut Temple · Colossi of Memnon', tags: ['Sightseeing', 'Guide'] },
+      { title: 'Board Cruise', date: 'Jul 23', detail: 'Embarkation · Edfu Temple excursion', tags: ['Cruise', 'Temple'] },
+      { title: 'Kom Ombo', date: 'Jul 24', detail: 'Kom Ombo temple · Sailing to Aswan', tags: ['Temple', 'Cruise'] },
+      { title: 'Aswan & Philae', date: 'Jul 25', detail: 'Philae Temple · High Dam · Nubian village', tags: ['Temple', 'Culture'] },
+      { title: 'Abu Simbel', date: 'Jul 26', detail: 'Day trip to Abu Simbel temples of Ramesses II', tags: ['Sightseeing'] },
+      { title: 'Departure', date: 'Jul 27', detail: 'Checkout · Transfer to airport', tags: ['Transfer', 'Departure'] },
+    ],
+    hotel: { name: 'Cairo Marriott + MS Mayfair Nile Cruise', stars: '5★', detail: 'Halal dining available at all properties · Arabic-speaking guide arranged' },
+    transport: { name: 'Private Car + Domestic Flight + Nile Cruise', detail: 'Cairo→Luxor flight · All ground transfers included · Cruise Luxor→Aswan' },
+  },
+];
+
+// ── LOGIN ──
+function doLogin() {
+  const ref   = document.getElementById('input-ref').value.trim().toUpperCase();
+  const email = document.getElementById('input-email').value.trim().toLowerCase();
+  const booking = bookings.find(b => b.ref === ref && b.email === email);
+  if (!booking) {
+    document.getElementById('login-error').style.display = 'block';
+    return;
+  }
+  document.getElementById('login-error').style.display = 'none';
+  renderPortal(booking);
+}
+
+function doLogout() {
+  document.getElementById('portal-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('input-ref').value = '';
+  document.getElementById('input-email').value = '';
+}
+
+// ── RENDER PORTAL ──
+function renderPortal(b) {
+  // Header
+  document.getElementById('portal-greeting').innerHTML = `Welcome, <em>${b.name.split(' ')[0]}</em>`;
+  document.getElementById('portal-ref').textContent = `${b.ref} · ${b.package}`;
+  document.getElementById('portal-status-badge').innerHTML = `<span class="badge ${b.statusBadge}">${b.status}</span>`;
+
+  // Overview cards
+  document.getElementById('overview-grid').innerHTML = `
+    <div class="overview-card"><div class="ov-label">Departure</div><div class="ov-value">${b.departure.split(',')[0]}</div><div class="ov-sub">${b.departure}</div></div>
+    <div class="overview-card"><div class="ov-label">Return</div><div class="ov-value">${b.returnDate.split(',')[0]}</div><div class="ov-sub">${b.returnDate}</div></div>
+    <div class="overview-card"><div class="ov-label">Duration</div><div class="ov-value">${b.duration}</div><div class="ov-sub">${b.days.length} days · ${b.pax} travellers</div></div>
+    <div class="overview-card"><div class="ov-label">Balance Due</div><div class="ov-value" style="color:${b.totalValue - b.totalPaid > 0 ? 'var(--red)' : 'var(--green)'}">$${(b.totalValue - b.totalPaid).toLocaleString()}</div><div class="ov-sub">of $${b.totalValue.toLocaleString()} total</div></div>
+  `;
+
+  // Payment summary
+  const pct = Math.round((b.totalPaid / b.totalValue) * 100);
+  const payRows = b.payments.map(p => `
+    <div class="pay-row">
+      <div>
+        <div style="font-size:14px;font-weight:500;">${p.type}</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">${p.date} · ${p.method}</div>
+      </div>
+      <div class="pay-row-val ${p.status === 'Received' ? 'green' : 'red'}">
+        ${p.status === 'Received' ? '+' : ''}$${p.amount.toLocaleString()}
+        <span style="font-size:11px;font-weight:400;margin-left:6px;">${p.status}</span>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('payment-summary').innerHTML = `
+    <div class="pay-progress-wrap">
+      <div class="pay-progress-label"><span>Amount Paid</span><span>${pct}% of total</span></div>
+      <div class="pay-progress-bar"><div class="pay-progress-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="pay-row"><span class="pay-row-label">Total Trip Value</span><span class="pay-row-val gold">$${b.totalValue.toLocaleString()}</span></div>
+    <div class="pay-row"><span class="pay-row-label">Total Paid</span><span class="pay-row-val green">$${b.totalPaid.toLocaleString()}</span></div>
+    <div class="pay-row" style="background:${b.totalValue - b.totalPaid > 0 ? '#FFF8F0' : '#F0FFF4'};margin:0 -24px;padding:12px 24px;">
+      <span class="pay-row-label" style="font-weight:600;">Balance Due</span>
+      <span class="pay-row-val ${b.totalValue - b.totalPaid > 0 ? 'red' : 'green'}" style="font-size:18px;">$${(b.totalValue - b.totalPaid).toLocaleString()}</span>
+    </div>
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px;">Payment History</div>
+      ${payRows}
+    </div>
+  `;
+
+  // Itinerary
+  document.getElementById('itinerary-timeline').innerHTML = b.days.map((d, i) => `
+    <div class="tl-day">
+      <div class="tl-num">${i + 1}</div>
+      <div class="tl-content">
+        <div class="tl-day-label">${d.date}</div>
+        <div class="tl-title">${d.title}</div>
+        <div class="tl-detail">${d.detail}</div>
+        <div class="tl-tags">${d.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Logistics
+  document.getElementById('logistics-grid').innerHTML = `
+    <div class="logistics-card">
+      <div class="lc-icon">🏨</div>
+      <div class="lc-type">Accommodation</div>
+      <div class="lc-name">${b.hotel.name}</div>
+      <div style="font-size:12px;color:var(--gold);margin:4px 0;">${b.hotel.stars}</div>
+      <div class="lc-detail">${b.hotel.detail}</div>
+    </div>
+    <div class="logistics-card">
+      <div class="lc-icon">🚌</div>
+      <div class="lc-type">Transport</div>
+      <div class="lc-name">${b.transport.name}</div>
+      <div class="lc-detail" style="margin-top:8px;">${b.transport.detail}</div>
+    </div>
+  `;
+
+  // Show portal
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('portal-screen').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
